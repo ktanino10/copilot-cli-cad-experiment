@@ -113,3 +113,11 @@ Bed temp:      60°C
 - **Language**: Python 3
 - **Libraries**: Pillow, NumPy, numpy-stl, scipy, trimesh, ezdxf
 - **Date**: March 20, 2026
+
+
+## ⚠️ Disclaimer / Non-Commercial Use
+
+- This project is for **personal and educational purposes only**. It is **not intended for commercial use**.
+- The GitHub logo and Octocat are **trademarks of GitHub, Inc.** This project is not affiliated with, endorsed by, or sponsored by GitHub.
+- Please refer to the [GitHub Logo Usage Guidelines](https://github.com/logos) before using or distributing any output.
+
