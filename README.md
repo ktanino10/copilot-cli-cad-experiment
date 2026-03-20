@@ -1,113 +1,115 @@
-# 🧪 GitHub Copilot CLI × CADファイル生成実験
+# 🧪 GitHub Copilot CLI × CAD File Generation Experiment
 
-## 概要
+> 🇯🇵 **日本語版はこちら → [README.ja.md](README.ja.md)**
 
-**GitHub Copilot CLI** に画像（GitHub Octocatロゴ）を読み込ませ、3Dプリント可能なSTLファイルおよび各種CADフォーマットを自動生成できるか実験した記録です。
+## Overview
 
-## 実験内容
+This is a record of an experiment to see if **GitHub Copilot CLI** can load an image (GitHub Octocat logo) and automatically generate 3D-printable STL files and various CAD formats.
 
-### 入力
-- **画像**: GitHub Mark（Octocatロゴ）の PNG画像（`GitHub-Mark-ea2971cee799.png`）
+## What We Did
+
+### Input
+- **Image**: GitHub Mark (Octocat logo) PNG image (`GitHub-Mark-ea2971cee799.png`)
 
 ![GitHub Mark](GitHub-Mark-ea2971cee799.png)
 
-### やったこと
-1. GitHub Copilot CLI に画像ファイルを渡し、「この画像を元に3Dプリント用のCADを作って」と依頼
-2. Copilot CLI が Python スクリプトを自動生成・実行
-3. 画像をグレースケール化 → 二値化 → メッシュ化 → 貫通型3Dモデルを生成
-4. STLファイルからさらに複数のCADフォーマット（OBJ, DXF等）へ変換
-5. Fusion 360 や AutoCAD でも編集できるよう複数形式を出力
+### Process
+1. Passed the image file to GitHub Copilot CLI and asked: "Create a 3D-printable CAD from this image"
+2. Copilot CLI automatically generated and executed Python scripts
+3. The image was converted: Grayscale → Binarization → Mesh generation → Cut-through 3D models
+4. The STL files were then converted to multiple CAD formats (OBJ, DXF, etc.)
+5. Multiple formats were exported for editing in Fusion 360, AutoCAD, etc.
 
-### 生成した2つのモデル
+### Two Generated Models
 
-画像の白黒を使って **2種類の貫通型モデル** を生成：
+Two types of **cut-through models** were generated from the black and white areas of the image:
 
-#### ① `octocat_black_solid` — 黒部分がソリッド
-- 元画像の **黒い円リング部分** がそのまま立体になる
-- **Octocatシルエット部分は空洞（貫通穴）** になっている
-- 用途：額縁・フレーム型、クッキー型の外枠など
+#### ① `octocat_black_solid` — Black Areas are Solid
+- The **black circular ring** from the original image becomes the solid body
+- The **Octocat silhouette is hollow (cut-through hole)**
+- Use cases: Frame/border type, cookie cutter outer frame, etc.
 
-#### ② `octocat_white_solid` — 白部分（Octocatシルエット）がソリッド
-- 元画像の **Octocatシルエット（白い猫の形）** だけが立体になる
-- 周囲の黒い部分は存在しない
-- 用途：Octocatフィギュア、スタンプ、キーホルダーなど
+#### ② `octocat_white_solid` — White Areas (Octocat Silhouette) are Solid
+- Only the **Octocat silhouette (white cat shape)** becomes a solid body
+- The surrounding black areas do not exist
+- Use cases: Octocat figurine, stamp, keychain, etc.
 
-### モデル仕様
+### Model Specifications
 
-| パラメータ | 値 |
+| Parameter | Value |
 |---|---|
-| サイズ | 60mm × 60mm |
-| 高さ（厚み） | 5mm |
-| 形状 | 貫通型（空洞あり） |
-| 解像度 | 500 × 500 ピクセルベース |
+| Size | 60mm × 60mm |
+| Height (thickness) | 5mm |
+| Shape | Cut-through (with hollow sections) |
+| Resolution | 500 × 500 pixel-based |
 
-## 生成ファイル一覧
+## Generated Files
 
-### 3Dファイル（3Dプリント / 3D CADソフト向け）
+### 3D Files (for 3D Printing / 3D CAD Software)
 
-| ファイル | 形式 | 説明 | 対応ソフト |
+| File | Format | Description | Compatible Software |
 |---|---|---|---|
-| `octocat_black_solid.stl` | STL | 黒部分ソリッド（3Dプリント標準） | Cura, PrusaSlicer, Fusion 360, AutoCAD |
-| `octocat_black_solid.obj` | OBJ | 黒部分ソリッド（汎用3D） | Fusion 360, Blender, 3ds Max, Maya |
-| `octocat_black_solid.3mf` | 3MF | 黒部分ソリッド（次世代3Dプリント） | Cura, PrusaSlicer, Windows 3D Viewer |
-| `octocat_black_solid.ply` | PLY | 黒部分ソリッド | MeshLab, CloudCompare, Fusion 360 |
-| `octocat_black_solid.off` | OFF | 黒部分ソリッド | MeshLab, Geomview |
-| `octocat_white_solid.stl` | STL | Octocatソリッド（3Dプリント標準） | Cura, PrusaSlicer, Fusion 360, AutoCAD |
-| `octocat_white_solid.obj` | OBJ | Octocatソリッド（汎用3D） | Fusion 360, Blender, 3ds Max, Maya |
-| `octocat_white_solid.3mf` | 3MF | Octocatソリッド（次世代3Dプリント） | Cura, PrusaSlicer, Windows 3D Viewer |
-| `octocat_white_solid.ply` | PLY | Octocatソリッド | MeshLab, CloudCompare, Fusion 360 |
-| `octocat_white_solid.off` | OFF | Octocatソリッド | MeshLab, Geomview |
+| `octocat_black_solid.stl` | STL | Black solid (3D printing standard) | Cura, PrusaSlicer, Fusion 360, AutoCAD |
+| `octocat_black_solid.obj` | OBJ | Black solid (universal 3D) | Fusion 360, Blender, 3ds Max, Maya |
+| `octocat_black_solid.3mf` | 3MF | Black solid (next-gen 3D printing) | Cura, PrusaSlicer, Windows 3D Viewer |
+| `octocat_black_solid.ply` | PLY | Black solid | MeshLab, CloudCompare, Fusion 360 |
+| `octocat_black_solid.off` | OFF | Black solid | MeshLab, Geomview |
+| `octocat_white_solid.stl` | STL | Octocat solid (3D printing standard) | Cura, PrusaSlicer, Fusion 360, AutoCAD |
+| `octocat_white_solid.obj` | OBJ | Octocat solid (universal 3D) | Fusion 360, Blender, 3ds Max, Maya |
+| `octocat_white_solid.3mf` | 3MF | Octocat solid (next-gen 3D printing) | Cura, PrusaSlicer, Windows 3D Viewer |
+| `octocat_white_solid.ply` | PLY | Octocat solid | MeshLab, CloudCompare, Fusion 360 |
+| `octocat_white_solid.off` | OFF | Octocat solid | MeshLab, Geomview |
 
-### 2Dファイル（2D CADソフト / ベクター編集向け）
+### 2D Files (for 2D CAD Software / Vector Editing)
 
-| ファイル | 形式 | 説明 | 対応ソフト |
+| File | Format | Description | Compatible Software |
 |---|---|---|---|
-| `octocat_black_solid.dxf` | DXF | 黒部分の2D輪郭 | **AutoCAD**, Fusion 360, Illustrator |
-| `octocat_white_solid.dxf` | DXF | Octocatシルエットの2D輪郭 | **AutoCAD**, Fusion 360, Illustrator |
+| `octocat_black_solid.dxf` | DXF | Black area 2D contour | **AutoCAD**, Fusion 360, Illustrator |
+| `octocat_white_solid.dxf` | DXF | Octocat silhouette 2D contour | **AutoCAD**, Fusion 360, Illustrator |
 
-### その他
+### Other Files
 
-| ファイル | 説明 |
+| File | Description |
 |---|---|
-| `GitHub-Mark-ea2971cee799.png` | 入力画像（元データ） |
-| `generate_cutout.py` | 貫通型モデル生成スクリプト |
-| `generate_stl.py` | 初期版（コイン型メダリオン）生成スクリプト |
+| `GitHub-Mark-ea2971cee799.png` | Input image (source data) |
+| `generate_cutout.py` | Cut-through model generation script |
+| `generate_stl.py` | Initial version (coin/medallion type) generation script |
 
-## 3Dプリント推奨設定
+## Recommended 3D Print Settings
 
 ```
-レイヤー高さ: 0.2mm
-インフィル:   100%（貫通型なので中身は詰めた方が丈夫）
-サポート:     不要
-素材:         PLA推奨
-ノズル温度:   200-210°C
-ベッド温度:   60°C
+Layer height:  0.2mm
+Infill:        100% (recommended for cut-through models for strength)
+Supports:      Not needed
+Material:      PLA recommended
+Nozzle temp:   200-210°C
+Bed temp:      60°C
 ```
 
-## CADソフトでの編集方法
+## How to Edit in CAD Software
 
-### Fusion 360 で開く場合
-1. **3D編集**: `.obj` または `.stl` をインポート → 「メッシュ」→「BRep変換」で自由に編集可能
-2. **2D → 3D**: `.dxf` をインポート → スケッチとして読み込み → 「押し出し」で好きな厚みに3D化
+### Fusion 360
+1. **3D editing**: Import `.obj` or `.stl` → "Mesh" → "Convert to BRep" for full editing
+2. **2D → 3D**: Import `.dxf` → Loads as sketch → "Extrude" to desired thickness
 
-### AutoCAD で開く場合
-1. **2D図面**: `.dxf` を直接開く → ポリラインとして編集可能
-2. **3Dモデル**: `.stl` をインポート
+### AutoCAD
+1. **2D drawing**: Open `.dxf` directly → Editable as polylines
+2. **3D model**: Import `.stl`
 
-### Blender で開く場合
-- `.obj` をインポート → モディファイアで編集
+### Blender
+- Import `.obj` → Edit with modifiers
 
-## 実験の感想
+## Findings
 
-- **画像からSTL生成**: Copilot CLI がPythonコードを自動生成し、画像のピクセルデータから水密メッシュの3Dモデルを作成してくれた
-- **貫通型モデル**: 白黒の反転で「型」と「シルエット」の2パターンを自動生成できた
-- **フォーマット変換**: STLから OBJ, PLY, 3MF, DXF 等への変換も指示するだけで自動実行
-- **パラメトリック**: スクリプトのパラメータ（サイズ、厚み等）を変えれば簡単にカスタマイズ可能
-- **制限**: 画像ベースのため、曲面のスムーズさはピクセル解像度に依存。より滑らかにしたい場合はFusion 360でBRep変換後にスムージングするのがベター
+- **Image to STL**: Copilot CLI auto-generated Python code to create watertight mesh 3D models from image pixel data
+- **Cut-through models**: By inverting black/white, two patterns ("frame" and "silhouette") were automatically generated
+- **Format conversion**: Conversion from STL to OBJ, PLY, 3MF, DXF, etc. was done simply by asking
+- **Parametric**: Model size and thickness can be easily customized by changing script parameters
+- **Limitations**: Since it's image-based, surface smoothness depends on pixel resolution. For smoother models, convert to BRep in Fusion 360 and apply smoothing
 
-## 環境
+## Environment
 
-- **ツール**: GitHub Copilot CLI
-- **言語**: Python 3
-- **ライブラリ**: Pillow, NumPy, numpy-stl, scipy, trimesh, ezdxf
-- **日付**: 2026年3月20日
+- **Tool**: GitHub Copilot CLI
+- **Language**: Python 3
+- **Libraries**: Pillow, NumPy, numpy-stl, scipy, trimesh, ezdxf
+- **Date**: March 20, 2026
